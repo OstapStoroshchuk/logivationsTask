@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="/">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="two-forms">
+        <form th:action="@{/saveCase}" method="post" class="main-form">
+            <div class="form-group">
+                <H1>Form for adding cases: </H1>
+                <label for="sizeX">Size X :</label>
+                <input id="sizeX" name="sizeX" type="text" class="form-input form-control">
+
+                <label for="sizeY"> Size Y :</label>
+                <input id="sizeY" type="text" name="sizeY" class="form-input form-control">
+
+                <label for="sizeZ"> Size Z : </label>
+                <input id="sizeZ" name="sizeZ" type="text" class="form-input form-control"><br>
+
+                <input id="saveCase" type="submit" value="Add case..." class="btn btn-info">
+            </div>
+        </form>
+        <form th:action="@{/saveOrderline}" method="post" class="main-form">
+            <div class="form-group">
+                <H1>Form for adding orderlines: </H1>
+                <label for="numberOfProducts">Count of product:</label>
+                <input id="numberOfProducts" name="numberOfProducts" type="text" class="form-input form-control"><br>
+                <label for="productId">Product id:</label>
+                <input id="productId" name="productId" type="text" class="form-input form-control"><br>
+                <div>
+                    <select>
+                        <option th:each="product : ${products}" th:text="
+                        'sizeX '+${product.sizeY} +
+                        ' sizeY '+${product.sizeY} +
+                        ' sizeZ '+${product.sizeZ} +
+                        ' product '"></option>
+                    </select>
+                </div>
+                <br>
+                <input id="saveOrderline" type="submit" value="Add order..." class="btn btn-info">
+            </div>
+        </form>
+    </div>
+    <div class="tables">
+        <table>
+            <th>Id  </th>
+            <th>Size X  </th>
+            <th>Size Y  </th>
+            <th>Size Z  </th>
+            <tbody>
+            <tr th:each="case : ${cases}">
+                <td th:text="${case.id}"></td>
+                <td th:text="${case.sizeX}"></td>
+                <td th:text="${case.sizeY}"></td>
+                <td th:text="${case.sizeY}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <th>Id  </th>
+            <th>Size X  </th>
+            <th>Size Y  </th>
+            <th>Size Z  </th>
+            <th>Count of product</th>
+            <th>Name of product</th>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.product.sizeX}"></td>
+                <td th:text="${order.product.sizeY}"></td>
+                <td th:text="${order.product.sizeZ}"></td>
+                <td th:text="${order.numberOfProducts}"></td>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+</body>
+</html>
